@@ -14,7 +14,7 @@
   <div class="container">
     <!-- Header -->
     <header class="header">
-      <div class="badge">0 € • 100% Automatique • iPhone iOS 16, 17, 18+</div>
+      <div class="badge">0 € • 100% Automatique • Calibré pour iPhone 13 (iOS 16, 17, 18+)</div>
       <h1>NoTime <span>Memento Mori</span></h1>
       <p class="subtitle">
         Chaque matin à <strong>06:00</strong>, votre fond d'écran s'actualise tout seul.
@@ -33,7 +33,7 @@
         <div class="card">
           <div class="card-header">
             <span class="step-num">1</span>
-            <h2>Votre Date de Naissance</h2>
+            <h2>Votre Date & Personnalisation</h2>
           </div>
           <div class="form-group">
             <label for="dob">Date de naissance</label>
@@ -58,6 +58,39 @@
               <button type="button" class="color-btn" data-color="#FFD60A" style="--c: #FFD60A" title="Or"></button>
               <button type="button" class="color-btn" data-color="#30D158" style="--c: #30D158" title="Vert"></button>
               <button type="button" class="color-btn" data-color="#0A84FF" style="--c: #0A84FF" title="Bleu"></button>
+            </div>
+          </div>
+
+          <!-- Fine Tuning for iPhone 13 -->
+          <div class="tuning-section">
+            <div class="tuning-title">
+              <span>🎯 Calibrage iPhone 13 & Écran Verrouillé</span>
+            </div>
+
+            <div class="form-group range-group">
+              <div class="range-header">
+                <label for="top-offset">Position sous l'heure (Dégagement haut)</label>
+                <span class="range-val" id="top-offset-val">860 px</span>
+              </div>
+              <input type="range" id="top-offset" min="700" max="1050" step="10" value="860">
+              <div class="range-sub">Augmentez si des points touchent encore l'heure ou vos widgets</div>
+            </div>
+
+            <div class="form-group range-group">
+              <div class="range-header">
+                <label for="margin-zoom">Zoom / Largeur de la grille</label>
+                <span class="range-val" id="margin-zoom-val">Zoom max (42px)</span>
+              </div>
+              <input type="range" id="margin-zoom" min="20" max="90" step="2" value="42">
+              <div class="range-sub">Réduire la marge agrandit la grille sur toute la largeur</div>
+            </div>
+
+            <div class="form-group range-group">
+              <div class="range-header">
+                <label for="dot-size">Taille des points</label>
+                <span class="range-val" id="dot-size-val">5.2 px</span>
+              </div>
+              <input type="range" id="dot-size" min="3.5" max="7.0" step="0.2" value="5.2">
             </div>
           </div>
 
@@ -119,7 +152,7 @@
 
           <div class="download-actions">
             <button type="button" id="download-btn" class="btn-secondary">
-              📥 Télécharger l'image actuelle (PNG HD)
+              📥 Télécharger l'image actuelle (PNG HD iPhone 13)
             </button>
           </div>
 
@@ -179,12 +212,13 @@
         <div class="preview-sticky">
           <div class="preview-header">
             <span class="live-dot"></span>
-            Aperçu Réel iPhone 16 Pro
+            Aperçu Réel iPhone 13 (1170 × 2532)
           </div>
 
           <div class="phone-frame">
-            <!-- Dynamic Island -->
-            <div class="dynamic-island">
+            <!-- iPhone 13 Notch -->
+            <div class="iphone13-notch">
+              <div class="speaker-earpiece"></div>
               <div class="camera-lens"></div>
             </div>
 
@@ -212,7 +246,7 @@
           </div>
 
           <div class="preview-caption">
-            Les points sont parfaitement calibrés sous l'horloge et les widgets de l'écran verrouillé iOS.
+            Les points sont dégagés sous l'horloge et les widgets avec une largeur optimisée plein écran.
           </div>
         </div>
       </section>

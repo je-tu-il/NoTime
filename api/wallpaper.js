@@ -13,8 +13,11 @@ module.exports = async function handler(req, res) {
       text = 'true',
       quote = 'MEMENTO MORI',
       format = 'png',
-      width = 1290,
-      height = 2796
+      width = 1170, // iPhone 13 native
+      height = 2532, // iPhone 13 native
+      top = 860, // Clear of lockscreen clock
+      margin = 42, // Zoomed in width (takes 93% of screen)
+      dot = 5.2 // Clear, larger dots
     } = req.query || {};
 
     const cleanHex = (val, fallback) => {
@@ -32,8 +35,11 @@ module.exports = async function handler(req, res) {
       bgColor: cleanHex(bg, '#000000'),
       showText: text === 'true' || text === '1',
       customQuote: quote ? String(quote) : '',
-      width: parseInt(width, 10) || 1290,
-      height: parseInt(height, 10) || 2796
+      width: parseInt(width, 10) || 1170,
+      height: parseInt(height, 10) || 2532,
+      top: parseInt(top, 10) || 860,
+      margin: parseInt(margin, 10) || 42,
+      dot: parseFloat(dot) || 5.2
     };
 
     if (format === 'json') {
