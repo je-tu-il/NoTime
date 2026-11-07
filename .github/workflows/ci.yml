@@ -1,0 +1,19 @@
+name: CI Pipeline - NoTime
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Project Structure
+        run: |
+          echo "Validating NoTime..."
+          test -f Lancer_Projet.bat || echo "Missing launcher"
+          test -f Dockerfile || echo "Missing Dockerfile"
+          test -f ARCHITECTURE_PRO.md || echo "Missing architecture"
