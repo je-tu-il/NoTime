@@ -1,0 +1,21 @@
+{
+  "name": "notime",
+  "version": "1.0.0",
+  "description": "Fond d'écran iPhone Memento Mori actualisé automatiquement chaque matin à 6h (1 point = 1 semaine de vie)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "memento-mori",
+    "ios-shortcut",
+    "wallpaper",
+    "life-in-weeks"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}

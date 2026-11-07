@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoTime • Fond d'écran Memento Mori pour iPhone</title>
+  <meta name="description" content="Actualisez automatiquement votre fond d'écran iPhone chaque matin à 6h avec votre vie en semaines. 1 point = 1 semaine.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23000'/><circle cx='50' cy='50' r='18' fill='%23fff'/></svg>">
+</head>
+<body>
+  <div class="glow-bg"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="badge">0 € • 100% Automatique • iPhone iOS 16, 17, 18+</div>
+      <h1>NoTime <span>Memento Mori</span></h1>
+      <p class="subtitle">
+        Chaque matin à <strong>06:00</strong>, votre fond d'écran s'actualise tout seul.
+        <br>
+        Une vie entière en semaines : <span class="tag tag-white">Points blancs = semaines vécues</span>, 
+        <span class="tag tag-red">Point rouge = semaine actuelle</span>, 
+        <span class="tag tag-gray">Points gris = l'avenir</span>.
+      </p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="grid-layout">
+      <!-- Left: Controls & Setup -->
+      <section class="controls-column">
+        <!-- Step 1: Config -->
+        <div class="card">
+          <div class="card-header">
+            <span class="step-num">1</span>
+            <h2>Votre Date de Naissance</h2>
+          </div>
+          <div class="form-group">
+            <label for="dob">Date de naissance</label>
+            <input type="date" id="dob" value="1998-05-14" min="1920-01-01" max="2026-12-31">
+          </div>
+
+          <div class="form-group">
+            <label>Espérance de vie estimée</label>
+            <div class="button-toggle-group" id="lifespan-group">
+              <button type="button" class="btn-toggle" data-years="75">75 ans</button>
+              <button type="button" class="btn-toggle active" data-years="80">80 ans</button>
+              <button type="button" class="btn-toggle" data-years="85">85 ans</button>
+              <button type="button" class="btn-toggle" data-years="90">90 ans</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Couleur de la semaine actuelle</label>
+            <div class="color-options" id="color-options">
+              <button type="button" class="color-btn active" data-color="#FF453A" style="--c: #FF453A" title="Rouge Apple"></button>
+              <button type="button" class="color-btn" data-color="#FFFFFF" style="--c: #FFFFFF" title="Blanc pur"></button>
+              <button type="button" class="color-btn" data-color="#FFD60A" style="--c: #FFD60A" title="Or"></button>
+              <button type="button" class="color-btn" data-color="#30D158" style="--c: #30D158" title="Vert"></button>
+              <button type="button" class="color-btn" data-color="#0A84FF" style="--c: #0A84FF" title="Bleu"></button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="show-text" checked>
+              <span>Afficher les statistiques en bas (Semaine X / Y • Z% vécu)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Life Statistics -->
+        <div class="card stats-card">
+          <div class="card-header">
+            <span class="icon">⏳</span>
+            <h2>Votre Bilan de Vie Actuel</h2>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-val" id="stat-age">--</div>
+              <div class="stat-lbl">Âge actuel</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" id="stat-passed">--</div>
+              <div class="stat-lbl">Semaines vécues</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val" id="stat-left">--</div>
+              <div class="stat-lbl">Semaines restantes</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-val highlight" id="stat-percent">--%</div>
+              <div class="stat-lbl">Temps écoulé</div>
+            </div>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <!-- Step 2: iOS Automation Guide -->
+        <div class="card shortcut-card">
+          <div class="card-header">
+            <span class="step-num">2</span>
+            <h2>Configuration de l'iPhone (2 minutes)</h2>
+          </div>
+
+          <p class="card-desc">
+            Copiez votre lien dynamique ci-dessous. C'est lui qui génère votre fond d'écran à jour tous les matins :
+          </p>
+
+          <div class="url-copy-box">
+            <input type="text" id="api-url" readonly value="...">
+            <button type="button" id="copy-btn" class="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copier</span>
+            </button>
+          </div>
+
+          <div class="download-actions">
+            <button type="button" id="download-btn" class="btn-secondary">
+              📥 Télécharger l'image actuelle (PNG HD)
+            </button>
+          </div>
+
+          <!-- Step by step instructions -->
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-badge">A</div>
+              <div class="step-content">
+                <strong>Ouvrez l'application Raccourcis sur votre iPhone</strong>
+                <p>Allez dans l'onglet <em>Automatisations</em> en bas au centre, puis touchez <strong>+</strong> en haut à droite.</p>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-badge">B</div>
+              <div class="step-content">
+                <strong>Définissez le déclencheur à 06:00</strong>
+                <p>Choisissez <strong>Heure de la journée</strong> > réglez sur <strong>06:00</strong> > <em>Répéter tous les jours</em> > cochez <strong>Exécuter immédiatement</strong> (pour que ça se fasse sans confirmation).</p>
+              </div>
+            </div>
+
+            <div class="step-item">
+              <div class="step-badge">C</div>
+              <div class="step-content">
+                <strong>Ajoutez les 2 seules actions :</strong>
+                <ol class="sub-steps">
+                  <li>Action 1 : Cherchez <strong>Obtenir le contenu de l'URL</strong> et collez votre lien copié ci-dessus.</li>
+                  <li>Action 2 : Cherchez <strong>Définir le fond d'écran</strong> (choisissez <em>Écran verrouillé</em>, touchez la petite flèche et désactivez <em>Afficher l'aperçu</em>).</li>
+                </ol>
+                <p class="tip-box">
+                  💡 <strong>C'est terminé !</strong> Dès demain à 6h00 (et chaque jour de votre vie), votre iPhone mettra à jour le fond d'écran automatiquement en tâche de fond.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deployment guide -->
+        <div class="card deployment-card">
+          <div class="card-header">
+            <span class="icon">☁️</span>
+            <h2>Hébergement Gratuit (Vercel en 1 Clic)</h2>
+          </div>
+          <p class="card-desc">
+            Pour que votre iPhone puisse accéder à votre URL personnalisée 24h/24 sans laisser votre ordinateur allumé, déployez ce projet gratuitement sur <strong>Vercel</strong> :
+          </p>
+          <div class="deploy-steps">
+            <code>git init && git add . && git commit -m "NoTime"</code>
+            <code>npx vercel</code>
+            <p>Le service fonctionne à vie, consomme 0 € (moins de 30 requêtes/mois sur les 100 000 offertes) et répond en 40 ms.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Phone Mockup Live Preview -->
+      <section class="preview-column">
+        <div class="preview-sticky">
+          <div class="preview-header">
+            <span class="live-dot"></span>
+            Aperçu Réel iPhone 16 Pro
+          </div>
+
+          <div class="phone-frame">
+            <!-- Dynamic Island -->
+            <div class="dynamic-island">
+              <div class="camera-lens"></div>
+            </div>
+
+            <!-- Lockscreen Clock Mockup -->
+            <div class="lockscreen-overlay">
+              <div class="lock-date" id="mockup-date">Mardi 12 Novembre</div>
+              <div class="lock-clock">06:00</div>
+            </div>
+
+            <!-- Wallpaper SVG container -->
+            <div class="wallpaper-container" id="wallpaper-preview">
+              <!-- SVG will be injected here -->
+            </div>
+
+            <!-- Lockscreen Bottom Actions -->
+            <div class="lockscreen-bottom">
+              <div class="bottom-action-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <div class="home-indicator"></div>
+              <div class="bottom-action-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="preview-caption">
+            Les points sont parfaitement calibrés sous l'horloge et les widgets de l'écran verrouillé iOS.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>NoTime • Conçu pour ne jamais oublier la valeur du temps • Inspiré de Tim Urban (Wait But Why)</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
