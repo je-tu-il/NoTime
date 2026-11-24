@@ -711,3 +711,33 @@ input[type="range"]::-webkit-slider-thumb:hover {
   color: var(--text-dim);
   font-size: 0.85rem;
 }
+
+/* Wallpaper editor */
+:root {
+  color-scheme: dark;
+  --bg-main: #141210;
+  --bg-card: #201c18;
+  --bg-card-subtle: #2a241f;
+  --border-subtle: #3c332b;
+  --border-active: #736152;
+  --text-main: #fcf5eb;
+  --text-muted: #c3b4a3;
+  --text-dim: #a49483;
+  --accent-blue: #83b5fa;
+}
+.header h1 { font-size: clamp(2.15rem, 6vw, 4rem); letter-spacing: -.065em; }
+.grid-layout { gap: clamp(18px, 4vw, 54px); align-items: start; }
+.card { border-radius: 20px; box-shadow: none; }
+.card-header h2 { letter-spacing: -.035em; }
+.form-group, .range-group { min-width: 0; }
+.url-copy-box { min-width: 0; }
+.url-copy-box input { min-width: 0; }
+.stats-grid { gap: 8px; }
+.stat-val { font-variant-numeric: tabular-nums; }
+.preview-sticky { align-self: start; }
+:where(button, input, select):focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 3px; }
+@media (max-width: 560px) {
+  .url-copy-box { flex-wrap: wrap; }
+  .url-copy-box :is(input, button) { flex-basis: 100%; }
+  .btn-toggle { min-height: 44px; }
+}
