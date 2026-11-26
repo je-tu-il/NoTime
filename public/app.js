@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const previewOnly = document.body.hasAttribute('data-portfolio-preview');
   // Elements
   const dobInput = document.getElementById('dob');
   const lifespanButtons = document.querySelectorAll('#lifespan-group .btn-toggle');
@@ -169,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wallpaperPreview.innerHTML = renderSvg(stats);
 
     // Construct API URL
+    if (previewOnly) return;
     const baseUrl = window.location.origin;
     const colorHex = state.currentWeekColor.replace('#', '');
     let url = `${baseUrl}/api/wallpaper?dob=${state.dob}&years=${state.lifespan}&current=${colorHex}&text=${state.showText}`;
@@ -227,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Copy URL
-  copyBtn.addEventListener('click', async () => {
+  copyBtn?.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(apiUrlInput.value);
       const span = copyBtn.querySelector('span');
@@ -245,6 +247,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Download image
   downloadBtn.addEventListener('click', () => {
+    if (previewOnly) {
+      const artwork = wallpaperPreview.querySelector('svg')?.cloneNode(true);
+      if (!artwork) return;
+      const [, , width, height] = artwork.getAttribute('viewBox').split(' ').map(Number);
+      artwork.setAttribute('width', width);
+      artwork.setAttribute('height', height);
+      const source = new Blob([new XMLSerializer().serializeToString(artwork)], {type: 'image/svg+xml'});
+      const url = URL.createObjectURL(source);
+      const image = new Image();
+      const status = document.getElementById('export-status');
+      const fail = () => { status.textContent = 'Impossible de générer le PNG.'; };
+      image.onload = () => {
+        URL.revokeObjectURL(url);
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext('2d');
+        if (!context) { fail(); return; }
+        context.drawImage(image, 0, 0);
+        canvas.toBlob(blob => {
+          if (!blob) { fail(); return; }
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = 'notime-wallpaper.png';
+          document.body.append(link);
+          link.click();
+          link.remove();
+          setTimeout(() => URL.revokeObjectURL(link.href), 10000);
+          status.textContent = '';
+        }, 'image/png');
+      };
+      image.onerror = () => { URL.revokeObjectURL(url); fail(); };
+      image.src = url;
+      return;
+    }
     const downloadUrl = apiUrlInput.value;
     const a = document.createElement('a');
     a.href = downloadUrl;
